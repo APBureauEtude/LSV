@@ -1,0 +1,184 @@
+/**
+ * Métré Pro-Studio - Styles des tableaux
+ */
+
+/* ===== GRID/TABLE STYLING ===== */
+.metre-container { 
+    background: white; 
+    height: 100%; 
+    overflow: auto; 
+    padding: 0; 
+    position: relative; 
+}
+
+table.metre-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    table-layout: fixed; 
+}
+
+table.metre-table th { 
+    background: #f0f0f0; 
+    border: 1px solid #ccc; 
+    padding: 4px; 
+    font-weight: normal; 
+    color: #333; 
+    position: sticky; 
+    top: 0; 
+    z-index: 10; 
+    font-size: 12px; 
+}
+
+table.metre-table td { 
+    border: 1px solid #eee; 
+    padding: 2px 4px; 
+    height: 22px; 
+    text-align: center; 
+    overflow: hidden; 
+    cursor: cell; 
+    font-size: 12px; 
+    background: #ffffff; 
+}
+
+table.metre-table td.editable:hover { 
+    background: #f9f9f9; 
+}
+
+table.metre-table td.editing { 
+    background: #fff9e6; 
+    border: 2px solid #3498db; 
+    padding: 0; 
+}
+
+table.metre-table td.selected { 
+    box-shadow: inset 0 0 0 2px #3498db; 
+    background: #e3f2fd !important; 
+}
+
+table.metre-table td:focus { 
+    outline: none; 
+}
+
+table.metre-table input { 
+    width: 100%; 
+    border: none; 
+    padding: 4px; 
+    font-family: inherit; 
+    font-size: inherit; 
+    background: transparent; 
+}
+
+table.metre-table input:focus { 
+    outline: none; 
+}
+
+table.metre-table td input { 
+    width: 100%; 
+    height: 100%; 
+    border: none; 
+    outline: none; 
+    text-align: center; 
+    font-size: 12px; 
+    padding: 2px; 
+}
+
+table.metre-table td.text-left { 
+    text-align: left; 
+}
+
+/* ===== SELECTED BLOCK STYLING ===== */
+.block-row.block-selected > td { 
+    box-shadow: inset 0 0 0 3px #3498db; 
+    background: #e8f8ff !important; 
+}
+
+/* ===== DELETE BLOCK BUTTON ===== */
+.btn-delete-block { 
+    transition: all 0.2s; 
+    font-family: Arial, sans-serif; 
+}
+
+.btn-delete-block:hover { 
+    opacity: 1 !important; 
+    transform: scale(1.15); 
+    background: #f5f5f5 !important; 
+    border-color: #333 !important; 
+}
+
+/* ===== VARIABLE BADGES ===== */
+.variable-badge { 
+    font-size: 9px; 
+    padding: 1px 4px; 
+    margin-left: 4px; 
+    vertical-align: middle; 
+    cursor: pointer; 
+    display: inline-block; 
+    border-width: 1px; 
+    border-style: solid; 
+}
+
+.variable-badge:hover { 
+    opacity: 0.8; 
+}
+
+.variable-badge.var-declaration { 
+    font-weight: bold; 
+}
+
+.variable-badge.var-call { 
+    font-weight: normal; 
+}
+
+/* ===== SOUS-TOTAL ROWS ===== */
+tr.sous-total-row { 
+    background: #ffffff !important; 
+}
+
+tr.sous-total-row td { 
+    background: #ffffff !important; 
+}
+
+tr.sous-total-row td:first-child { 
+    background: #f0f0f0 !important; 
+}
+
+tr.sous-total-row td.ens-cell { 
+    color: #000; 
+    font-weight: bold; 
+    cursor: pointer; 
+    user-select: none;
+}
+
+tr.sous-total-row td.ens-cell:hover { 
+    background: #f0f0f0 !important; 
+}
+
+tr.sous-total-row td.ens-cell:focus {
+    outline: 2px solid #3498db;
+    background: #e3f2fd !important;
+}
+
+tr.sous-total-row td.sum-cell { 
+    color: #000; 
+    font-weight: bold;
+    border-top: 1.5px solid #000 !important;
+}
+
+/* ===== FOOTER ROW STYLING ===== */
+tr.block-table-footer td.footer-calculated[data-field="valplus"],
+tr.block-table-footer td.footer-calculated[data-field="valmoins"] {
+    border-top: 1.5px solid #000 !important;
+}
+
+tr.block-table-footer td.footer-calculated[data-field="qtetotal"] {
+    border: 1.5px solid #000 !important;
+}
+
+/* ===== TITLE DISPLAYS ===== */
+.metre-title-display-table:hover { 
+    background: #e8f4fd !important; 
+}
+
+.folder-title-display:hover { 
+    background: #e8f4fd !important; 
+}
