@@ -60,14 +60,14 @@ metre-pro-studio/
 
 Les CSS sont organisés par composant. Pour modifier l'apparence :
 
-| Fichier | Ce qu'il contrôle |
-|---------|-------------------|
-| `css/main.css` | Layout général, header, footer |
-| `css/components/table.css` | Tableaux de métré, cellules |
-| `css/components/tree.css` | Arborescence, panneau variables |
-| `css/components/dialog.css` | Modales, settings, menus contextuels |
-| `css/components/canvas-editor.css` | Éditeur de dessin |
-| `css/components/viewer.css` | Visualiseur PDF/Images |
+| Fichier                            | Ce qu'il contrôle                      |
+|------------------------------------|----------------------------------------|
+| `css/main.css`                     | Layout général, header, footer         |
+| `css/components/table.css`         | Tableaux de métré, cellules            |
+| `css/components/tree.css`          | Arborescence, panneau variables        |
+| `css/components/dialog.css`        | Modales, settings, menus contextuels   |
+| `css/components/canvas-editor.css` | Éditeur de dessin                      |
+| `css/components/viewer.css`        | Visualiseur PDF/Images                 |
 
 ## 📝 Notes pour le développement futur
 
