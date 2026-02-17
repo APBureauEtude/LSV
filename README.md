@@ -70,6 +70,36 @@ Les CSS sont organisés par composant. Pour modifier l'apparence :
 | `css/components/viewer.css`        | Visualiseur PDF/Images                 |
 
 ## 📝 Notes pour le développement futur
+Voir Issues
+
+https://github.com/APBureauEtude/LSV/issues
+
+## Architecture du deesign de l'appli
+
+-Menu Onglet (onglet en entete de l'ap
+-Option Onglet (chaque onglet du menu a des options)
+-Ongjet de l'application (pour le moment application minute avant mettré) pourra etre dupliqué pour en ouvrir un autre.
+-Onglet des future aplication ,Planning, base de donné client, etude de prix, sous detail de prix, referencement, feuille de vente, coefficient, zone de chantier etc.
+-Dans l'app Minute avant metré:
+   -Fenetre Explorateur
+   -Fenetre minute
+   -Fenetre Variable
+   -Fenetre Visioneuse
+-Dans la fenetre minute :
+   -Poste
+      -Bloc tableau
+      -Bloc canvas
+      -Bloc zone image
+      -Bloc tableur libre (a faire)
+-Footer de l'application (pied de page), avec des infos sur l'application ouverte :
+   -Application Minute avant metré :
+      -Date de remise d'offre
+      -Date du RDV visite
+      -LSV en cours
+      -NB Cellule
+      -Somme Cellule
+      -Zoom
+
 
 ### Modularisation JavaScript (optionnel)
 
