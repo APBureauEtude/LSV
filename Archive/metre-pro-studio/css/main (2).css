@@ -1,0 +1,393 @@
+/**
+ * Métré Pro-Studio - Styles principaux
+ * Version 0.10
+ */
+
+/* ===== RESET & BASE ===== */
+body, html { 
+    height: 100%; 
+    margin: 0; 
+    overflow: hidden; 
+    font-family: 'Segoe UI', Tahoma, sans-serif; 
+    background-color: #f0f0f0; 
+}
+
+#wrapper { 
+    display: flex; 
+    flex-direction: column; 
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile */
+    max-height: 100vh;
+    max-height: 100dvh;
+    overflow: hidden;
+}
+
+/* ===== HEADER & TABS ===== */
+header { 
+    background: #ffffff; 
+    color: #333; 
+    flex-shrink: 0; 
+    border-bottom: 1px solid #ababab; 
+}
+
+.tabs-bar { 
+    display: flex; 
+    background: #e1e1e1; 
+    padding: 2px 10px 0; 
+    border-bottom: 1px solid #ababab; 
+    position: relative; 
+}
+
+.tab { 
+    padding: 5px 15px; 
+    cursor: pointer; 
+    background: #f0f0f0; 
+    margin-right: 2px; 
+    border: 1px solid #ababab; 
+    border-bottom: none; 
+    border-radius: 3px 3px 0 0; 
+    font-size: 12px; 
+    color: #555; 
+}
+
+.tab.active { 
+    background: #ffffff; 
+    color: #000; 
+    font-weight: bold; 
+    position: relative; 
+    top: 1px; 
+}
+
+/* ===== TOOLBAR ===== */
+.toolbar { 
+    background: #fdfdfd; 
+    padding: 5px 10px; 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+    transition: all 0.3s ease; 
+    overflow: hidden; 
+}
+
+.toolbar.collapsed { 
+    max-height: 0; 
+    padding: 0 10px; 
+    opacity: 0; 
+}
+
+.toolbar-content { 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+    width: 100%; 
+}
+
+.toolbar-toggle { 
+    position: absolute; 
+    right: 10px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    cursor: pointer; 
+    background: #f0f0f0; 
+    border: 1px solid #ababab; 
+    border-radius: 3px; 
+    padding: 2px 8px; 
+    font-size: 10px; 
+    transition: all 0.2s; 
+}
+
+.toolbar-toggle:hover { 
+    background: #e0e0e0; 
+}
+
+.tool-btn { 
+    border: 1px solid #ccc; 
+    background: linear-gradient(to bottom, #fff, #e6e6e6); 
+    padding: 4px 8px; 
+    cursor: pointer; 
+    border-radius: 2px; 
+    display: flex; 
+    align-items: center; 
+    gap: 4px; 
+    font-size: 12px; 
+}
+
+.tool-btn:hover { 
+    background: #e0e0e0; 
+    border-color: #999; 
+}
+
+.tool-btn:active { 
+    background: #d0d0d0; 
+}
+
+.separator { 
+    width: 1px; 
+    height: 20px; 
+    background: #ccc; 
+    margin: 0 5px; 
+}
+
+/* ===== PROJECT TABS ===== */
+.project-tabs-container { 
+    background: #e1e1e1; 
+    border-bottom: 1px solid #ababab; 
+    display: flex; 
+    padding: 2px 10px 0; 
+    min-height: 26px;
+    flex-shrink: 0;
+}
+
+.project-tab { 
+    padding: 3px 12px; 
+    cursor: pointer; 
+    background: #f0f0f0; 
+    margin-right: 2px; 
+    border: 1px solid #ababab; 
+    border-bottom: none; 
+    border-radius: 3px 3px 0 0; 
+    font-size: 11px; 
+    color: #555; 
+    max-width: 200px; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+    height: 24px; 
+}
+
+.project-tab.active { 
+    background: #ffffff; 
+    color: #000; 
+    font-weight: bold; 
+    position: relative; 
+    top: 1px; 
+}
+
+.project-tab-close { 
+    margin-left: 5px; 
+    cursor: pointer; 
+    opacity: 0.6; 
+    font-size: 10px; 
+}
+
+.project-tab-close:hover { 
+    opacity: 1; 
+    color: #e74c3c; 
+}
+
+#projects-container { 
+    flex: 1; 
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.project-workspace { 
+    display: none; 
+    width: 100%; 
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.project-workspace.active { 
+    display: block; 
+}
+
+.empty-state { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    height: 100%; 
+    color: #999; 
+    font-size: 14px; 
+    flex-direction: column; 
+    gap: 10px; 
+}
+
+/* ===== FOOTER ===== */
+footer { 
+    background: #f3f3f3; 
+    height: 28px; 
+    min-height: 28px;
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 0 10px; 
+    border-top: 1px solid #ababab; 
+    font-size: 11px; 
+    color: #444; 
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.zoom-control { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes flash {
+    0%, 100% { background-color: transparent; }
+    50% { background-color: #ffeb3b; }
+}
+
+.flash-cell {
+    animation: flash 0.2s ease-in-out 3;
+}
+
+@keyframes newRowHighlight {
+    0% { background-color: #fffacd; }
+    100% { background-color: transparent; }
+}
+
+tr.new-row-highlight td {
+    animation: newRowHighlight 0.8s ease-out;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.clickable { 
+    cursor: pointer; 
+}
+
+.clickable:hover { 
+    background: #e8f4fd; 
+}
+
+.col-plus { 
+    color: #27ae60; 
+    font-weight: bold; 
+}
+
+.col-moins { 
+    color: #e74c3c; 
+    font-weight: bold; 
+}
+
+.col-calculated { 
+    font-style: italic; 
+}
+
+/* ===== PANEL COLLAPSE BUTTONS ===== */
+.lm_header {
+    position: relative !important;
+}
+
+.panel-collapse-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    font-size: 12px;
+    background: #e8e8e8;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    user-select: none;
+    z-index: 10;
+}
+
+.panel-collapse-btn:hover {
+    background: #d0d0d0;
+    border-color: #999;
+}
+
+.panel-collapse-btn.rotated {
+    transform: translateY(-50%) rotate(45deg);
+}
+
+/* Style pour les panneaux réduits - commun */
+.lm_stack.panel-collapsed {
+    min-width: 28px !important;
+    max-width: 28px !important;
+    overflow: hidden;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+}
+
+.lm_stack.panel-collapsed .lm_header {
+    position: relative;
+    height: 100%;
+    flex-direction: column;
+    padding: 0;
+}
+
+.lm_stack.panel-collapsed .lm_items {
+    display: none !important;
+}
+
+.lm_stack.panel-collapsed .panel-collapse-btn {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: rotate(45deg);
+    margin: 3px auto;
+}
+
+.lm_stack.panel-collapsed .lm_tabs {
+    height: auto;
+    flex: 1;
+    padding-top: 30px;
+}
+
+.lm_stack.panel-collapsed .lm_tab {
+    margin: 0;
+    padding: 8px 4px;
+}
+
+/* Panneau réduit à GAUCHE - texte lisible de bas en haut */
+.lm_stack.panel-collapsed-left .lm_tabs {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+}
+
+/* Panneau réduit à DROITE - texte lisible de haut en bas */
+.lm_stack.panel-collapsed-right .lm_tabs {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: none;
+}
+
+/* Panneau des variables */
+[class*="variables-panel-"] {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.variables-list {
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #f5f5f5;
+}
+
+.variables-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.variables-list::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+
+.variables-list::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.variables-list::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}

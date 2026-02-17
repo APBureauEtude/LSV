@@ -1,0 +1,152 @@
+/**
+ * Métré Pro-Studio - Styles de l'arborescence
+ */
+
+/* ===== TREE CONTAINER ===== */
+.tree-container { 
+    background: white; 
+    font-size: 12px; 
+    height: 100%; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+.tree-search { 
+    padding: 8px; 
+    border-bottom: 1px solid #ddd; 
+    flex-shrink: 0; 
+}
+
+.tree-search input { 
+    width: 100%; 
+    padding: 4px 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 3px; 
+    font-size: 11px; 
+    box-sizing: border-box; 
+}
+
+.tree-toolbar { 
+    padding: 5px; 
+    border-bottom: 1px solid #ddd; 
+    display: flex; 
+    gap: 3px; 
+    background: #f9f9f9; 
+    flex-shrink: 0; 
+}
+
+.tree-btn { 
+    border: 1px solid #ccc; 
+    background: #fff; 
+    padding: 3px 6px; 
+    cursor: pointer; 
+    border-radius: 2px; 
+    font-size: 11px; 
+}
+
+.tree-btn:hover { 
+    background: #e8f4fd; 
+}
+
+.tree-content { 
+    flex: 1; 
+    overflow-y: auto; 
+    padding: 5px; 
+}
+
+/* ===== TREE NODES ===== */
+.tree-node { 
+    padding: 3px 5px; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+    user-select: none; 
+}
+
+.tree-node:hover { 
+    background: #f0f0f0; 
+}
+
+.tree-node.selected { 
+    background: #d4e6f1; 
+}
+
+.tree-node.folder { 
+    font-weight: bold; 
+}
+
+.tree-block { 
+    cursor: pointer; 
+}
+
+.tree-block:hover { 
+    background: #f9f9f9; 
+}
+
+.tree-toggle { 
+    cursor: pointer; 
+    width: 12px; 
+    text-align: center; 
+    font-size: 10px; 
+    user-select: none; 
+}
+
+.tree-node-label { 
+    user-select: none; 
+}
+
+.tree-children { 
+    padding-left: 20px; 
+}
+
+.tree-children.collapsed { 
+    display: none; 
+}
+
+/* ===== VARIABLES PANEL ===== */
+.variable-item { 
+    padding: 6px; 
+    border-bottom: 1px solid #eee; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.variable-item:hover { 
+    background: #f9f9f9; 
+}
+
+.variable-actions { 
+    display: flex; 
+    gap: 4px; 
+}
+
+.variable-actions button { 
+    border: none; 
+    background: none; 
+    cursor: pointer; 
+    padding: 2px; 
+    font-size: 14px; 
+}
+
+.variable-actions button:hover { 
+    background: #e0e0e0; 
+    border-radius: 2px; 
+}
+
+.add-variable-btn { 
+    width: calc(100% - 20px); 
+    padding: 6px; 
+    margin: 10px; 
+    background: #3498db; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    border-radius: 3px; 
+    font-size: 11px; 
+}
+
+.add-variable-btn:hover { 
+    background: #2980b9; 
+}

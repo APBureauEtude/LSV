@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Métré Pro-Studio - Version 0.10</title>
+    
+    <!-- ===== PWA - Progressive Web App ===== -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3498db">
+    <meta name="description" content="Application professionnelle de métré et calcul de quantités pour le BTP">
+    
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Métré Pro">
+    <link rel="apple-touch-icon" href="icons/icon-152.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+    
+    <!-- Windows PWA Support -->
+    <meta name="msapplication-TileColor" content="#3498db">
+    <meta name="msapplication-TileImage" content="icons/icon-144.png">
+    
+    <!-- ===== BIBLIOTHÈQUES EXTERNES ===== -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://golden-layout.com/files/latest/js/goldenlayout.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://golden-layout.com/files/latest/css/goldenlayout-base.css" />
+    <link type="text/css" rel="stylesheet" href="https://golden-layout.com/files/latest/css/goldenlayout-light-theme.css" />
+    
+    <!-- PDF.js for PDF viewing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        // Configure PDF.js worker
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
+
+    <!-- ===== STYLES DE L'APPLICATION ===== -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/table.css">
+    <link rel="stylesheet" href="css/components/tree.css">
+    <link rel="stylesheet" href="css/components/dialog.css">
+    <link rel="stylesheet" href="css/components/canvas-editor.css">
+    <link rel="stylesheet" href="css/components/viewer.css">
+</head>
+<body>
+
+<div id="wrapper">
+    <header>
+        <div class="tabs-bar">
+            <div class="tab active" data-tab="fichier">Fichier</div>
+            <div class="tab" data-tab="affichage">Affichage</div>
+            <div class="tab" data-tab="insertion">Insertion</div>
+            <div class="tab" data-tab="outils">Outils</div>
+            <div class="tab" data-tab="reglages">Réglages</div>
+            <div class="tab" data-tab="aide">Aide</div>
+            <span class="toolbar-toggle" id="toolbarToggle" title="Plier/Déplier la barre d'outils">▼</span>
+        </div>
+        <div class="toolbar" id="mainToolbar">
+            <!-- Fichier toolbar (default) -->
+            <div class="toolbar-content" data-toolbar="fichier">
+                <button class="tool-btn" onclick="newProject()">📄 Nouveau</button>
+                <button class="tool-btn" onclick="openFile()">📂 Ouvrir</button>
+                <button class="tool-btn" onclick="saveFile()">💾 Sauvegarder</button>
+                <div class="separator"></div>
+                <button class="tool-btn" onclick="importExcel()">📊 Importer Excel</button>
+                <button class="tool-btn" onclick="exportExcel()">📤 Exporter Excel</button>
+                <div class="separator"></div>
+                <button class="tool-btn" onclick="printProject()">🖨️ Imprimer</button>
+            </div>
+            
+            <!-- Affichage toolbar -->
+            <div class="toolbar-content" data-toolbar="affichage" style="display: none;">
+                <!-- Section Formatage -->
+                <div style="display: flex; align-items: center; gap: 3px; padding: 2px 8px; background: #f5f5f5; border-radius: 3px; margin-right: 10px;">
+                    <select id="fontFamily" onchange="applyFontFamily(this.value)" style="height: 22px; font-size: 11px; border: 1px solid #ccc; border-radius: 2px; padding: 0 4px; min-width: 90px;">
+                        <option value="Calibri">Calibri</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Tahoma">Tahoma</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Comic Sans MS">Comic Sans MS</option>
+                    </select>
+                    <select id="fontSize" onchange="applyFontSize(this.value)" style="height: 22px; font-size: 11px; border: 1px solid #ccc; border-radius: 2px; padding: 0 2px; width: 45px;">
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11" selected>11</option>
+                        <option value="12">12</option>
+                        <option value="14">14</option>
+                        <option value="16">16</option>
+                        <option value="18">18</option>
+                        <option value="20">20</option>
+                        <option value="24">24</option>
+                    </select>
+                    <button class="format-btn" onclick="changeFontSize(-1)" title="Réduire la taille">A<sup>-</sup></button>
+                    <button class="format-btn" onclick="changeFontSize(1)" title="Augmenter la taille">A<sup>+</sup></button>
+                </div>
+                
+                <!-- Section Style -->
+                <div style="display: flex; align-items: center; gap: 2px; padding: 2px 6px; background: #f5f5f5; border-radius: 3px; margin-right: 10px;">
+                    <button class="format-btn" id="btnBold" onclick="toggleFormat('bold')" title="Gras (Ctrl+B)"><b>G</b></button>
+                    <button class="format-btn" id="btnItalic" onclick="toggleFormat('italic')" title="Italique (Ctrl+I)"><i>I</i></button>
+                    <button class="format-btn" id="btnUnderline" onclick="toggleFormat('underline')" title="Souligné (Ctrl+U)"><u>S</u></button>
+                    <button class="format-btn" id="btnStrike" onclick="toggleFormat('strike')" title="Barré"><s>ab</s></button>
+                    <div style="width: 1px; height: 18px; background: #ccc; margin: 0 4px;"></div>
+                    <div style="position: relative; display: inline-block;" title="Couleur du texte">
+                        <div onclick="saveSelection(); document.getElementById('textColorPicker').click();" style="display: flex; flex-direction: column; align-items: center; padding: 2px 4px; border: 1px solid transparent; border-radius: 2px; cursor: pointer;" onmouseover="this.style.background='#e0e0e0'" onmouseout="this.style.background='transparent'">
+                            <span style="font-weight: bold; font-size: 12px;">A</span>
+                            <div id="textColorBar" style="width: 14px; height: 3px; background: #000000; margin-top: 1px;"></div>
+                        </div>
+                        <input type="color" id="textColorPicker" value="#000000" onchange="applyTextColor(this.value)" style="position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none;">
+                    </div>
+                    <div style="position: relative; display: inline-block;" title="Couleur de fond">
+                        <div onclick="saveSelection(); document.getElementById('bgColorPicker').click();" style="display: flex; flex-direction: column; align-items: center; padding: 2px 4px; border: 1px solid transparent; border-radius: 2px; cursor: pointer;" onmouseover="this.style.background='#e0e0e0'" onmouseout="this.style.background='transparent'">
+                            <span style="font-size: 12px;">🖌️</span>
+                            <div id="bgColorBar" style="width: 14px; height: 3px; background: #ffff00; margin-top: 1px;"></div>
+                        </div>
+                        <input type="color" id="bgColorPicker" value="#ffff00" onchange="applyBgColor(this.value)" style="position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none;">
+                    </div>
+                </div>
+                
+                <!-- Section Alignement -->
+                <div style="display: flex; align-items: center; gap: 2px; padding: 2px 6px; background: #f5f5f5; border-radius: 3px; margin-right: 10px;">
+                    <button class="format-btn" id="btnAlignLeft" onclick="applyAlignment('left')" title="Aligner à gauche">☰</button>
+                    <button class="format-btn" id="btnAlignCenter" onclick="applyAlignment('center')" title="Centrer">☰</button>
+                    <button class="format-btn" id="btnAlignRight" onclick="applyAlignment('right')" title="Aligner à droite">☰</button>
+                </div>
+                
+                <div class="separator"></div>
+                
+                <!-- Section Panneaux -->
+                <span style="font-size: 11px; color: #666; margin-right: 10px;">Panneaux :</span>
+                <button class="tool-btn" onclick="showPanel('tree')">📁 Explorateur</button>
+                <button class="tool-btn" onclick="showPanel('metre')">📝 Métré</button>
+                <button class="tool-btn" onclick="showPanel('variables')">🔢 Variables L-S-V</button>
+                <button class="tool-btn" onclick="showPanel('viewer')">👁️ Visionneuse</button>
+                <div class="separator"></div>
+                <span style="font-size: 11px; color: #666; margin-right: 10px;">Zoom :</span>
+                <button class="tool-btn" onclick="zoomIn()">🔍+ Zoom +</button>
+                <button class="tool-btn" onclick="zoomOut()">🔍− Zoom −</button>
+                <button class="tool-btn" onclick="zoomReset()">↺ 100%</button>
+            </div>
+            
+            <!-- Insertion toolbar -->
+            <div class="toolbar-content" data-toolbar="insertion" style="display: none;">
+                <span style="font-size: 11px; color: #666; margin-right: 10px;">Blocs :</span>
+                <button class="tool-btn" onclick="addBlockToCurrentPoste('file')">📝 Poste</button>
+                <button class="tool-btn" onclick="addBlockToCurrentPoste('table')">📊 Tableau</button>
+                <button class="tool-btn" onclick="addBlockToCurrentPoste('canvas')">🎨 Canvas</button>
+                <button class="tool-btn" onclick="addBlockToCurrentPoste('image')">📷 Images</button>
+                <div class="separator"></div>
+                <span style="font-size: 11px; color: #666; margin-right: 10px;">Structure :</span>
+                <button class="tool-btn" onclick="addNewFolder(currentProjectId)">📁 Dossier</button>
+                <button class="tool-btn" onclick="addPoste(currentProjectId)">📄 Fichier</button>
+            </div>
+            
+            <!-- Outils toolbar -->
+            <div class="toolbar-content" data-toolbar="outils" style="display: none;">
+                <button class="tool-btn" onclick="showVariableManager()">🔢 Gestionnaire de variables</button>
+                <button class="tool-btn" onclick="showSearchReplace()">🔍 Rechercher/Remplacer</button>
+                <div class="separator"></div>
+                <button class="tool-btn" onclick="validateFormulas()">✓ Valider les formules</button>
+                <button class="tool-btn" onclick="showCalculator()">🧮 Calculatrice</button>
+            </div>
+            
+            <!-- Réglages toolbar -->
+            <div class="toolbar-content" data-toolbar="reglages" style="display: none;">
+                <button class="tool-btn" onclick="openSettings()">⚙️ Préférences</button>
+                <button class="tool-btn" onclick="showShortcutsSettings()">⌨️ Raccourcis clavier</button>
+                <div class="separator"></div>
+                <button class="tool-btn" onclick="showUnitsSettings()">📏 Unités</button>
+                <button class="tool-btn" onclick="showDisplaySettings()">🎨 Apparence</button>
+            </div>
+            
+            <!-- Aide toolbar -->
+            <div class="toolbar-content" data-toolbar="aide" style="display: none;">
+                <button class="tool-btn" onclick="showHelp()">❓ Aide</button>
+                <button class="tool-btn" onclick="showShortcuts()">⌨️ Raccourcis clavier</button>
+                <button class="tool-btn" onclick="showAbout()">ℹ️ À propos</button>
+                <div class="separator"></div>
+                <button class="tool-btn" onclick="showTutorial()">🎓 Tutoriel</button>
+                <button class="tool-btn" onclick="checkUpdates()">🔄 Vérifier les mises à jour</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="project-tabs-container" id="projectTabs"></div>
+    
+    <div id="projects-container">
+        <div class="empty-state" id="emptyState">
+            <div>Aucun projet ouvert</div>
+            <button class="tool-btn" onclick="newProject()">📄 Créer un nouveau projet</button>
+        </div>
+    </div>
+
+    <footer>
+        <div style="display: flex; align-items: center; gap: 15px; flex: 1; min-width: 0;">
+            <div id="days-remaining" style="color: #666; font-weight: 500; cursor: pointer;" title="Double-clic pour modifier la date"></div>
+            <div class="status-info">
+                Somme sélection : <strong id="sum-val">0.00</strong> | Cellules : <strong id="cell-count">0</strong>
+            </div>
+            <div id="formula-display" style="display: none; color: #2980b9; font-family: monospace; font-size: 12px; background: #e8f4fd; padding: 2px 8px; border-radius: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 400px;" title="">
+                <span style="color: #3498db; font-weight: bold;">fx</span> <span id="formula-text"></span>
+            </div>
+        </div>
+        <div id="variable-counters" style="display: flex; align-items: center; gap: 8px; margin-right: 15px;">
+            <span id="var-counter-L" class="variable-badge var-declaration" data-var-type="L">L0</span>
+            <span id="var-counter-S" class="variable-badge var-declaration" data-var-type="S">S0</span>
+            <span id="var-counter-V" class="variable-badge var-declaration" data-var-type="V">V0</span>
+        </div>
+        <div class="zoom-control" style="display: flex; align-items: center; gap: 5px;">
+            <span>Zoom :</span>
+            <button id="zoomOut" style="padding: 4px; width: 28px; height: 28px; font-size: 16px; cursor: pointer; border: 1px solid #ccc; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;">−</button>
+            <input type="range" min="10" max="400" value="100" id="zoomSlider">
+            <button id="zoomIn" style="padding: 4px; width: 28px; height: 28px; font-size: 16px; cursor: pointer; border: 1px solid #ccc; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;">+</button>
+            <span id="zoomText">100%</span>
+        </div>
+    </footer>
+</div>
+
+<!-- Dialog overlay -->
+<div class="dialog-overlay" id="dialogOverlay">
+    <div class="dialog-box" id="dialogBox"></div>
+</div>
+
+<!-- Settings overlay -->
+<div class="settings-overlay" id="settingsOverlay">
+    <div class="settings-window">
+        <div class="settings-header">
+            <h2>⚙️ Réglages</h2>
+            <button class="settings-close" onclick="closeSettings()">✖</button>
+        </div>
+        <div class="settings-body">
+            <div class="settings-sidebar" id="settingsSidebar">
+                <div class="settings-menu-item active" data-section="general">Général</div>
+                <div class="settings-menu-item" data-section="display">Affichage</div>
+                <div class="settings-menu-item" data-section="layout">Mise en page</div>
+                <div class="settings-menu-item" data-section="theme">Thème</div>
+                <div class="settings-menu-item" data-section="tags">Tags</div>
+                <div class="settings-menu-item" data-section="units">Unités</div>
+                <div class="settings-menu-item" data-section="format">Format</div>
+                <div class="settings-menu-item" data-section="ai">IA</div>
+                <div class="settings-menu-item" data-section="export">Export</div>
+                <div class="settings-menu-item" data-section="advanced">Avancé</div>
+            </div>
+            <div class="settings-content" id="settingsContent"></div>
+        </div>
+        <div class="settings-footer">
+            <button class="settings-btn" onclick="closeSettings()">Annuler</button>
+            <button class="settings-btn primary" onclick="saveSettings()">Enregistrer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Debug Console -->
+<div class="debug-console" id="debugConsole">
+    <div class="debug-header">
+        <h3>🐛 Console de Débogage</h3>
+        <button class="settings-close" onclick="toggleDebugConsole()">✖</button>
+    </div>
+    <div class="debug-content" id="debugContent"></div>
+</div>
+
+<!-- Canvas Editor Overlay -->
+<div class="canvas-editor-overlay" id="canvasEditorOverlay">
+    <div class="canvas-editor">
+        <div class="canvas-editor-header">
+            <div class="canvas-editor-title">🎨 Éditeur de Canvas</div>
+            <button class="canvas-editor-close" onclick="closeCanvasEditor()">Fermer</button>
+        </div>
+        <div class="canvas-editor-toolbar">
+            <div class="canvas-tool-group">
+                <button class="canvas-tool-btn active" data-tool="pen" title="Crayon">✏️</button>
+                <button class="canvas-tool-btn" data-tool="eraser" title="Gomme">🧹</button>
+                <button class="canvas-tool-btn" data-tool="line" title="Ligne">📏</button>
+                <button class="canvas-tool-btn" data-tool="rect" title="Rectangle">▭</button>
+                <button class="canvas-tool-btn" data-tool="circle" title="Cercle">⭕</button>
+                <button class="canvas-tool-btn" data-tool="arrow" title="Flèche">➡️</button>
+                <button class="canvas-tool-btn" data-tool="text" title="Texte">📝</button>
+            </div>
+            <div class="canvas-tool-group">
+                <label style="font-size: 11px; margin-right: 5px;">Couleur:</label>
+                <input type="color" id="canvasColor" class="canvas-tool-input" value="#000000" style="width: 50px; height: 30px;">
+            </div>
+            <div class="canvas-tool-group">
+                <label style="font-size: 11px; margin-right: 5px;">Épaisseur:</label>
+                <input type="range" id="canvasLineWidth" class="canvas-tool-input" min="1" max="20" value="2" style="width: 100px;">
+                <span id="lineWidthValue" style="font-size: 11px; min-width: 25px;">2px</span>
+            </div>
+            <div class="canvas-tool-group">
+                <button class="canvas-tool-btn" onclick="uploadImageToCanvas()" title="Importer image">🖼️ Image</button>
+                <button class="canvas-tool-btn" onclick="toggleCanvasGrid()" title="Grille">📐</button>
+                <button class="canvas-tool-btn" onclick="clearCanvas()" title="Effacer tout">🗑️</button>
+            </div>
+            <div class="canvas-tool-group">
+                <button class="canvas-tool-btn" onclick="undoCanvas()" title="Annuler">↶</button>
+                <button class="canvas-tool-btn" onclick="redoCanvas()" title="Refaire">↷</button>
+            </div>
+            <div class="canvas-tool-group">
+                <button class="canvas-tool-btn" onclick="saveCanvasAndClose()" title="Sauvegarder" style="background: #27ae60; color: white; font-weight: bold;">💾 Sauvegarder</button>
+            </div>
+        </div>
+        <div class="canvas-editor-workspace">
+            <div class="canvas-editor-main">
+                <div class="canvas-container" id="canvasContainer">
+                    <canvas id="canvasEditor" width="800" height="600"></canvas>
+                </div>
+            </div>
+            <div class="canvas-editor-sidebar">
+                <h3 style="margin: 0 0 10px 0; font-size: 13px; color: #34495e;">📋 Propriétés</h3>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-size: 11px; font-weight: bold; display: block; margin-bottom: 5px;">Titre du canvas:</label>
+                    <input type="text" id="canvasTitle" class="canvas-tool-input" style="width: 100%;" placeholder="Ex: Détail façade">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-size: 11px; font-weight: bold; display: block; margin-bottom: 5px;">Dimensions:</label>
+                    <div style="display: flex; gap: 5px; align-items: center;">
+                        <input type="number" id="canvasWidth" class="canvas-tool-input" value="800" style="width: 60px;" min="200" max="2000">
+                        <span style="font-size: 11px;">×</span>
+                        <input type="number" id="canvasHeight" class="canvas-tool-input" value="600" style="width: 60px;" min="200" max="2000">
+                        <button class="canvas-tool-btn" onclick="resizeCanvas()" style="font-size: 10px;">✓</button>
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size: 11px; font-weight: bold; display: block; margin-bottom: 5px;">Fond:</label>
+                    <input type="color" id="canvasBackground" class="canvas-tool-input" value="#ffffff" style="width: 100%; height: 35px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== JAVASCRIPT DE L'APPLICATION ===== -->
+<script src="js/app.js"></script>
+
+<!-- ===== PWA - Enregistrement du Service Worker ===== -->
+<script>
+    // Enregistrer le service worker pour la PWA
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('./sw.js')
+                .then(function(registration) {
+                    console.log('[PWA] Service Worker enregistré:', registration.scope);
+                })
+                .catch(function(error) {
+                    console.log('[PWA] Erreur Service Worker:', error);
+                });
+        });
+    }
+    
+    // Gérer l'événement d'installation PWA
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Empêcher l'affichage automatique
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Afficher un bouton d'installation dans l'interface si souhaité
+        console.log('[PWA] Application installable disponible');
+    });
+</script>
+
+</body>
+</html>

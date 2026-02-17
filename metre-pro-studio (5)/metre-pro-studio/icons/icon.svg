@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#grad1)"/>
+  
+  <!-- Ruler icon -->
+  <rect x="120" y="180" width="280" height="60" rx="8" fill="#ffffff"/>
+  <rect x="140" y="200" width="4" height="20" fill="#3498db"/>
+  <rect x="170" y="210" width="4" height="10" fill="#3498db"/>
+  <rect x="200" y="200" width="4" height="20" fill="#3498db"/>
+  <rect x="230" y="210" width="4" height="10" fill="#3498db"/>
+  <rect x="260" y="200" width="4" height="20" fill="#3498db"/>
+  <rect x="290" y="210" width="4" height="10" fill="#3498db"/>
+  <rect x="320" y="200" width="4" height="20" fill="#3498db"/>
+  <rect x="350" y="210" width="4" height="10" fill="#3498db"/>
+  <rect x="380" y="200" width="4" height="20" fill="#3498db"/>
+  
+  <!-- Calculator/table icon -->
+  <rect x="150" y="280" width="220" height="140" rx="10" fill="#ffffff"/>
+  <line x1="150" y1="315" x2="370" y2="315" stroke="#3498db" stroke-width="3"/>
+  <line x1="150" y1="350" x2="370" y2="350" stroke="#e0e0e0" stroke-width="2"/>
+  <line x1="150" y1="385" x2="370" y2="385" stroke="#e0e0e0" stroke-width="2"/>
+  <line x1="220" y1="280" x2="220" y2="420" stroke="#e0e0e0" stroke-width="2"/>
+  <line x1="300" y1="280" x2="300" y2="420" stroke="#e0e0e0" stroke-width="2"/>
+  
+  <!-- Text "M" -->
+  <text x="256" y="160" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ffffff" text-anchor="middle">M</text>
+</svg>

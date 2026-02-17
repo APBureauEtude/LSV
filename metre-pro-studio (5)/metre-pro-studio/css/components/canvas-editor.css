@@ -1,0 +1,216 @@
+/**
+ * Métré Pro-Studio - Styles de l'éditeur Canvas
+ */
+
+/* ===== CANVAS BLOCK STYLES ===== */
+.canvas-block { 
+    background: #fafafa; 
+    border: 1px solid #ddd; 
+    border-radius: 4px; 
+    margin: 10px 0; 
+}
+
+.canvas-header { 
+    background: #f0f0f0; 
+    padding: 8px 12px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 1px solid #ddd; 
+}
+
+.canvas-title { 
+    font-weight: bold; 
+    color: #333; 
+    font-size: 13px; 
+}
+
+.canvas-actions { 
+    display: flex; 
+    gap: 5px; 
+}
+
+.canvas-btn { 
+    background: white; 
+    border: 1px solid #ccc; 
+    padding: 4px 8px; 
+    cursor: pointer; 
+    border-radius: 3px; 
+    font-size: 11px; 
+}
+
+.canvas-btn:hover { 
+    background: #e8f4fd; 
+}
+
+.canvas-preview { 
+    padding: 10px; 
+    text-align: center; 
+    cursor: pointer; 
+}
+
+.canvas-preview:hover { 
+    background: #f9f9f9; 
+}
+
+.canvas-thumbnail { 
+    max-width: 100%; 
+    max-height: 200px; 
+    border: 1px solid #ddd; 
+    border-radius: 3px; 
+}
+
+/* ===== CANVAS EDITOR OVERLAY ===== */
+.canvas-editor-overlay { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    background: rgba(0,0,0,0.8); 
+    z-index: 10000; 
+    display: none; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.canvas-editor { 
+    background: white; 
+    width: 90vw; 
+    height: 90vh; 
+    border-radius: 8px; 
+    display: flex; 
+    flex-direction: column; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3); 
+}
+
+.canvas-editor-header { 
+    background: #2c3e50; 
+    color: white; 
+    padding: 12px 20px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-radius: 8px 8px 0 0; 
+}
+
+.canvas-editor-title { 
+    font-size: 16px; 
+    font-weight: bold; 
+}
+
+.canvas-editor-close { 
+    background: #e74c3c; 
+    border: none; 
+    color: white; 
+    padding: 6px 15px; 
+    cursor: pointer; 
+    border-radius: 4px; 
+    font-size: 12px; 
+}
+
+.canvas-editor-close:hover { 
+    background: #c0392b; 
+}
+
+.canvas-editor-toolbar { 
+    background: #ecf0f1; 
+    padding: 10px; 
+    border-bottom: 1px solid #bdc3c7; 
+    display: flex; 
+    gap: 10px; 
+    align-items: center; 
+    flex-wrap: wrap; 
+}
+
+.canvas-tool-group { 
+    display: flex; 
+    gap: 5px; 
+    align-items: center; 
+    padding-right: 10px; 
+    border-right: 1px solid #bdc3c7; 
+}
+
+.canvas-tool-group:last-child { 
+    border-right: none; 
+}
+
+.canvas-tool-btn { 
+    background: white; 
+    border: 1px solid #95a5a6; 
+    padding: 6px 12px; 
+    cursor: pointer; 
+    border-radius: 4px; 
+    font-size: 12px; 
+    transition: all 0.2s; 
+}
+
+.canvas-tool-btn:hover { 
+    background: #3498db; 
+    color: white; 
+    border-color: #3498db; 
+}
+
+.canvas-tool-btn.active { 
+    background: #3498db; 
+    color: white; 
+    border-color: #2980b9; 
+}
+
+.canvas-tool-input { 
+    padding: 4px 8px; 
+    border: 1px solid #95a5a6; 
+    border-radius: 4px; 
+    font-size: 12px; 
+}
+
+.canvas-editor-workspace { 
+    flex: 1; 
+    display: flex; 
+    overflow: hidden; 
+}
+
+.canvas-editor-main { 
+    flex: 1; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    background: #34495e; 
+    padding: 20px; 
+    overflow: auto; 
+}
+
+.canvas-container { 
+    background: white; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3); 
+    position: relative; 
+}
+
+.canvas-editor-sidebar { 
+    width: 250px; 
+    background: #ecf0f1; 
+    border-left: 1px solid #bdc3c7; 
+    padding: 15px; 
+    overflow-y: auto; 
+}
+
+.canvas-layer { 
+    background: white; 
+    padding: 8px; 
+    margin-bottom: 8px; 
+    border-radius: 4px; 
+    border: 1px solid #bdc3c7; 
+    cursor: pointer; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.canvas-layer:hover { 
+    background: #e8f4fd; 
+}
+
+.canvas-layer.active { 
+    background: #3498db; 
+    color: white; 
+}
