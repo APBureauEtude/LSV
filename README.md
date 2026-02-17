@@ -76,30 +76,29 @@ https://github.com/APBureauEtude/LSV/issues
 
 ## Architecture du deesign de l'appli
 
--Menu Onglet (onglet en entete de l'ap
--Option Onglet (chaque onglet du menu a des options)
--Ongjet de l'application (pour le moment application minute avant mettré) pourra etre dupliqué pour en ouvrir un autre.
--Onglet des future aplication ,Planning, base de donné client, etude de prix, sous detail de prix, referencement, feuille de vente, coefficient, zone de chantier etc.
--Dans l'app Minute avant metré:
-   -Fenetre Explorateur
-   -Fenetre minute
-   -Fenetre Variable
-   -Fenetre Visioneuse
--Dans la fenetre minute :
-   -Poste
-      -Bloc tableau
-      -Bloc canvas
-      -Bloc zone image
-      -Bloc tableur libre (a faire)
--Footer de l'application (pied de page), avec des infos sur l'application ouverte :
-   -Application Minute avant metré :
-      -Date de remise d'offre
-      -Date du RDV visite
-      -LSV en cours
-      -NB Cellule
-      -Somme Cellule
-      -Zoom
-
+- Menu Onglet (onglet en entete de l'application)
+- Option Onglet (chaque onglet du menu a des options)
+- Ongjet du pojet (pour le moment application minute avant metré) pourra etre dupliqué pour en ouvrir un autre.
+- Onglet des future aplications, Planning, base de donnée client, étude de prix, sous detail de prix, réferencement, feuille de vente, coefficient, zone de chantier etc.
+- Dans l'app Minute avant metré:
+   - Fenetre Explorateur
+   - Fenetre Minute
+   - Fenetre Variable
+   - Fenetre Visioneuse
+- Dans la fenetre minute :
+   - Poste
+      - Bloc tableau
+      - Bloc canvas
+      - Bloc zone image
+      - Bloc tableur libre (a faire)
+- Footer de l'application (pied de page), avec des infos sur l'application ouverte :
+   - Application Minute avant metré :
+      - Date de remise d'offre
+      - Date du RDV visite
+      - LSV en cours
+      - NB Cellule
+      - Somme Cellule
+      - Zoom
 
 ### Modularisation JavaScript (optionnel)
 
